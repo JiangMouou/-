@@ -53,4 +53,26 @@ int main()
 	}
 }
 //信息学奥赛1074
-//答案不对，回去继续研究。
+//答案没毛病，网站垃圾
+#include<stdio.h>
+int main()
+{
+	int yao, n;//药量和取药的人数
+	int x=0;//没取到药的人
+	int i;//计数器
+	int qu;//每人取多少药
+	scanf("%d%d", &yao,&n);
+	for(i=0;i<n;i++)
+	{
+		scanf("%d", &qu);
+		if(qu>yao)
+				x++; 
+		else
+			yao -= qu;
+
+	}
+	printf("%d",x);
+	return 0;
+}
+
+//1075
