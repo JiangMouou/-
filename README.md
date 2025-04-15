@@ -860,3 +860,149 @@ int main()
 	}
 	return 0;
 }
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+// 试验台的第一个实验，C语言实现顺序表的基本操作
+// 实验内容：实现顺序表的基本操作，包括初始化、尾部添加元素、中间插入元素、删除元素、遍历输出、数据查找。
+// 实验要求：1. 实现顺序表的基本操作，包括初始化、尾部添加元素、中间插入元素、删除元素、遍历输出、数据查找。
+//          2. 实现结构体的使用，包括结构体的声明、结构体变量的定义、结构体变量的初始化、结构体变量的使用。
+//          3. 实现malloc()函数和free()函数的使用。
+// 实验难度：中级
+// 实验时间：2025.4.12
+#define _CRT_SECURE_NO_WARNINGS 1
+#define MAXSIZE 100
+typedef int ElemType;
+#include<stdio.h>
+#include<string.h>
+typedef struct
+{
+	ElemType data[MAXSIZE];//不需要初始化 
+	int length;
+}
+SqList;//定义顺序表结构
+//在尾部添加元素
+int appendElem(SqList* L, ElemType e)
+{
+	if (L->length >= MAXSIZE) {
+		printf("顺序表已满\n");
+		return 0;
+	}
+	L->data[L->length] = e;
+	L->length++;
+	return 1;
+	printf("%d\n", L->length);
+}
+//中间插入元素
+int insertElem(SqList* L, int pos, ElemType e)
+{
+	if (L->length >= MAXSIZE)
+	{
+		printf("顺序表已满\n");
+		return 0;
+	}
+	if (pos<1 || pos>L->length)
+	{
+		printf("插入位置不合法\n");
+		return 0;
+	}
+	if (pos <= L->length)
+	{
+		for (int i = L->length - 1; i >= pos - 1; i--)
+		{
+			L->data[i + 1] = L->data[i];
+		}
+		L->data[pos - 1] = e;
+		L->length++;
+		return 1;
+	}
+	return 1;
+}
+//删除元素
+int deleteElem(SqList* L, int pos, ElemType* e)
+{
+	*e = L->data[pos - 1];
+	if (pos < L->length)
+	{
+		for (int i = pos; i < L->length; i++)
+		{
+			L->data[i - 1] = L->data[i];
+		}
+	}
+	L->length--;
+	return 1;
+}
+//查找元素
+int findElem(SqList* L, ElemType e)
+{
+	if (L->length == 0)
+		return 0;
+	for (int i = 0; i <= L->length; i++)
+	{
+		if (L->data[i] == e)
+		{
+			return i + 1;
+		}
+	}
+	return 0;
+}
+//遍历输出
+void listElem(SqList* L)
+{
+	for (int i = 0; i < L->length; i++) {
+		printf("%d ", L->data[i]);
+	}
+	printf("\n");
+}
+void InitList(SqList* L)//初始化顺序表
+{
+	L->length = 0;
+}
+int main() {
+	struct point {
+		int x;
+		int y;
+		char zimu[20];
+	};
+	SqList list;
+	InitList(&list);
+	printf("初始化成功，目前长度占用%d\n", list.length);
+	printf("目前占用内存%zu字节\n", sizeof(list.data));
+	appendElem(&list, 100);
+	appendElem(&list, 200);
+	appendElem(&list, 300);
+	appendElem(&list, 400);
+	appendElem(&list, 500);
+	listElem(&list);
+	printf("目前长度占用%d\n", list.length);
+	insertElem(&list, 3, 150);
+	listElem(&list);
+	deleteElem(&list, 4, &list.data[3]);
+	listElem(&list);
+	printf("500在第%d个位置\n", findElem(&list, 500));
+	//输出被占用的内存大小
+	//填入了两个数据，占用了两个空间，所以长度为2
+	//没有.data时会多占用4字节（疑问）
+	//下面是使用结构体的例子
+	struct point p;
+	p.x = 10;
+	p.y = 20;
+	strcpy(p.zimu, "字符串赋值strcpy()");
+	printf("%s\n", p.zimu);
+	printf("x=%d y=%d\n", p.x, p.y);
+	struct point* pp = &p;
+	pp->x = 30;
+	(*pp).y = 40;
+	printf("x=%d y=%d\n", p.x, p.y);
+	ElemType a = 10;
+	printf("a=%d\n", a);
+	
+	return 0;
+}
+//malloc()函数和free()函数的使用
+//网课中第二个视频1小时左右教学使用
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
+******************************************************************************************************************************************************
